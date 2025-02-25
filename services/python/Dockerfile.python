@@ -1,0 +1,18 @@
+FROM python:3.11-alpine
+
+# Set the working directory
+WORKDIR /app
+
+# Install OpenJDK-11
+RUN apk update && \
+    apk add --no-cache bash
+
+# Install PYTHON requirements
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application files
+COPY . .
+
+# Default command
+CMD ["fastapi", "dev", "app.py"]
