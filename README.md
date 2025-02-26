@@ -49,31 +49,6 @@ API_ACCESS_TOKEN_EXPIRE_MINUTES=30
 FERNET_KEY='My Fernet Key for encryption of sensitive data'
 ```
 
-And add a admin.json con save base initial admin data in the root of the folder /services/python/admin.json.
-
-```json
-{
-  "ls_admin_users": [
-    {
-      "name": "XXX",
-      "surname": "XXX",
-      "account_name": "XXX",
-      "password": "a8J1L1eUhSH2GGqJzF7toZIt1ZIAbYYl",
-      "grant_id": 3,
-      "email": "XXX@gmail.com"
-    },
-    {
-      "name": "YYY",
-      "surname": "YYY",
-      "account_name": "YYY",
-      "password": "CKAnhOeIFHK2Cx3eERMn8r9btLUdISJL",
-      "grant_id": 3,
-      "email": "YYY@gmail.com"
-    }
-  ]
-}
-```
-
 ## Installation & Setup
 
 1. Clone this repository:

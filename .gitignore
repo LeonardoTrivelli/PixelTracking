@@ -60,8 +60,7 @@ dump.rdb
 
 #Ignore docker volumes 
 data
+redis_data
 certs
 volumes
 
-#Ignore adming.json
-admin.json

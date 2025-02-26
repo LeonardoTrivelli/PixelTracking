@@ -57,7 +57,8 @@ def add(
         content={
             "message": "Campaign created successfully",
             "campaign_id": new_campaign.id,
-            "campaign_name": new_campaign.campaign_name
+            "campaign_name": new_campaign.campaign_name,
+            "user_id": user.id
         },
         status_code=status.HTTP_201_CREATED
     )

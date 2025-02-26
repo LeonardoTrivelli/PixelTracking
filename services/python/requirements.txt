@@ -109,3 +109,5 @@ watchfiles==0.24.0
 websockets==13.1
 zipp==3.20.2
 pytz==2025.1
+fastapi-cache2==0.2.2
+redis

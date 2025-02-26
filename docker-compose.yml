@@ -35,16 +35,18 @@ services:
       - --bind-address=0.0.0.0
     restart: always
     healthcheck:
-      test: ["CMD", mysqladmin, "ping", "-h", "localhost"]
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$MYSQL_ROOT_PASSWORD"]
       interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 5
+      start_period: 10s
     env_file:
       - .env
     networks:
       - my_network
     ports:
       - 3306:3306  # Expose to other containers, but not the host
+
   cert-gen:
     image: alpine
     volumes:

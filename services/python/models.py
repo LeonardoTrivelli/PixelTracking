@@ -18,6 +18,8 @@ class Users(Base):
     deleted_datetime = Column(DateTime, nullable=True, default=None)
     ## Users Relationship
     logins = relationship("Logins", back_populates="users")
+    campaigns = relationship("Campaigns", back_populates="users")
+    groups = relationship("Groups", back_populates="users")
 
 class Logins(Base):
     __tablename__ = 'logins'
@@ -33,6 +35,7 @@ class Logins(Base):
 class Campaigns(Base):
     __tablename__ = 'campaigns'
     id = Column(Integer, primary_key=True, index=True, autoincrement=True, nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     campaign_name = Column(String(255), nullable=False)
     campaign_description = Column(Text, nullable=False, default=None)
     created_datetime = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
@@ -42,11 +45,13 @@ class Campaigns(Base):
 
     groups = relationship("Groups", back_populates="campaigns")
     contacts = relationship("Contacts", back_populates="campaigns")
+    users = relationship("Users", back_populates="campaigns")
 
 class Groups(Base):
     __tablename__ = 'groups'
     id = Column(Integer, primary_key=True, index=True, autoincrement=True, nullable=False)
     campaign_id = Column(Integer, ForeignKey('campaigns.id'), nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     campaign_group_id = Column(Integer, nullable=False)
     group_name = Column(String(255), nullable=False)
     group_description = Column(Text, nullable=True, default=None)
@@ -55,6 +60,7 @@ class Groups(Base):
 
     campaigns = relationship("Campaigns", back_populates="groups")
     contacts = relationship("Contacts", back_populates="groups")
+    users = relationship("Users", back_populates="groups")
 
 class Contacts(Base):
     __tablename__ = 'contacts'

@@ -1,0 +1,100 @@
+{
+  "ls_admin_users": [
+    {
+      "name": "XXX",
+      "surname": "XXX",
+      "account_name": "XXX",
+      "password": "a8J1L1eUhSH2GGqJzF7toZIt1ZIAbYYl",
+      "grant_id": 3,
+      "email": "XXX@gmail.com"
+    },
+    {
+      "name": "YYY",
+      "surname": "YYY",
+      "account_name": "YYY",
+      "password": "CKAnhOeIFHK2Cx3eERMn8r9btLUdISJL",
+      "grant_id": 3,
+      "email": "YYY@gmail.com"
+    }
+  ],
+  "ls_campaigns": [
+    {
+      "id": "1",
+      "user_id": "1",
+      "campaign_name": "My first Campaign",
+      "campaign_description": "My first Campaign Description",
+      "created_datetime": "2020-01-01 00:00:00",
+      "deleted_datetime": null,
+      "start_datetime": "2020-01-01 00:00:00",
+      "end_datetime": "2020-01-31 00:00:00"
+    },
+    {
+      "id": "2",
+      "user_id": "1",
+      "campaign_name": "My second Campaign",
+      "campaign_description": "My second Campaign Description",
+      "created_datetime": "2020-01-01 00:00:00",
+      "deleted_datetime": null,
+      "start_datetime": "2020-01-01 00:00:00",
+      "end_datetime": "2020-01-31 00:00:00"
+    }
+  ],
+  "ls_groups": [
+    {
+      "id": "1",
+      "campaign_id": "1",
+      "user_id": "1",
+      "campaign_group_id": "1",
+      "group_name": "A",
+      "group_description": "Group A",
+      "created_datetime": "2020-01-01 00:00:00",
+      "deleted_datetime": null
+    },
+    {
+      "id": "2",
+      "campaign_id": "1",
+      "user_id": "1",
+      "campaign_group_id": "2",
+      "group_name": "B",
+      "group_description": "Group B",
+      "created_datetime": "2020-01-01 00:00:00",
+      "deleted_datetime": null
+    }
+  ],
+  "ls_contacts": [
+    {
+      "uuid": "25656984-ed81-457b-b2e4-d2289bb73b2e",
+      "campaign_id": "1",
+      "group_id": "1",
+      "scheduled_datetime": "2020-01-01 00:00:00"
+    },
+    {
+      "uuid": "bb9bb966-e2c4-44ba-988a-0021cd9b7edf",
+      "campaign_id": "1",
+      "group_id": "2",
+      "scheduled_datetime": "2020-01-01 00:00:00"
+    }
+  ],
+  "ls_pixels": [
+    {
+      "uuid": "679f0716-1405-4dc0-8aa7-5f302b4b2c1b",
+      "contact_uuid": "25656984-ed81-457b-b2e4-d2289bb73b2e",
+      "contact_pixel_number": 1
+    },
+    {
+      "uuid": "fc091fd4-8db1-478d-9e66-ae3fe8188e56",
+      "contact_uuid": "25656984-ed81-457b-b2e4-d2289bb73b2e",
+      "contact_pixel_number": 2
+    },
+    {
+      "uuid": "6c57357e-a471-4143-b619-773a096dbc29",
+      "contact_uuid": "bb9bb966-e2c4-44ba-988a-0021cd9b7edf",
+      "contact_pixel_number": 1
+    },
+    {
+      "uuid": "b9c8b1d1-7085-46f0-8c12-f09c89996673",
+      "contact_uuid": "bb9bb966-e2c4-44ba-988a-0021cd9b7edf",
+      "contact_pixel_number": 2
+    }
+  ]
+}
