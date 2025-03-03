@@ -65,7 +65,46 @@ services:
     env_file:
       - .env
     # No ports section to keep Redis internal
+  prometheus:
+    image: docker.io/prom/prometheus:v3.2.1
+    container_name: prometheus_service
+    networks:
+      - my_network
+    ports:
+      - 9090:9090
+    command: "--config.file=/etc/prometheus/prometheus.yaml"
+    volumes:
+      - ./config:/etc/prometheus
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.51.0
+    container_name: cadvisor
+    networks:
+      - my_network
+    expose:
+      - "8080"
+    volumes:
+      - /:/rootfs:ro
+      - /run:/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    devices:
+      - /dev/kmsg
+    privileged: true
+    restart: unless-stopped
 
+  grafana:
+    image: docker.io/grafana/grafana-oss:11.5.2
+    container_name: grafana
+    networks:
+      - my_network
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
   cert-gen:
     image: alpine
     volumes:
@@ -82,6 +121,13 @@ services:
         openssl req -new -x509 -key /certs/ca.key -out /certs/ca.crt -days 1095 -subj "/CN=Certificate Authority/O=myorg/C=US" &&
         chmod 600 /certs/* && chown 999:999 /certs/*
     restart: "no"
+
+volumes:
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+
 networks:
   my_network:
     driver: bridge

@@ -18,6 +18,14 @@ Each scheduled contact is unique for campaign and group.
 
 The application allow to insert multiple pixels inside the same contact. But the pixel number id with pixel uuid must be unique.
 
+The monitoring service is based on the Grafana system hosted on post 9090 served by a Prometheus log storage. There are two levels of monitoring:
+- Of Docker instances (containers RAM and usages).
+- FastAPI calls (mysql Datasource).
+
+![Alt text](./assets/image_grafana_docker.png?raw=true "Docker")
+
+![Alt text](./assets/image_grafana_pixel.png?raw=true "Pixels")
+
 ## Features
 
 - User Authentication
@@ -29,6 +37,7 @@ The application allow to insert multiple pixels inside the same contact. But the
 - Schedule Contacts
 - JWT Token Authentication
 - Redis Caching
+- Monitoring with Prometheus & Grafana
 
 ## Database Schema
 
