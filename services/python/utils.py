@@ -18,6 +18,7 @@ from passlib.context import CryptContext
 import datetime
 from database import get_db
 from cryptography.fernet import Fernet
+import redis
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
@@ -124,4 +125,18 @@ def write_pixel():
         with open(pixel_path, "wb") as f:
             f.write(b"GIF89a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00\xff\xff\xff!\xf9\x04\x01\x00\x00\x00\x00,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;")
 
-    
+def get_redis_connection():
+    redis_host = 'redis_service'
+    redis_port = 6379
+    redis_password = os.getenv("REDIS_PASSWORD")
+    r = redis.Redis(host=redis_host, port=redis_port, password=redis_password)
+    return r
+
+def save_to_redis(key, value):
+    r = get_redis_connection()
+    r.set(key, value, ex=60*60)
+
+def get_from_redis(key):
+    r = get_redis_connection()
+    value = r.get(key)
+    return value

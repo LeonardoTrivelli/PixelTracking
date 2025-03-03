@@ -85,25 +85,34 @@ def get(
 
     utils.write_pixel()
 
-    # Check if pixel exists
-    pixel = db.query(models.Pixels).filter(models.Pixels.uuid == uuid).first()
-    if not pixel:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Pixel with uuid {uuid} not found.")
+    # Check if the pixel exists in redis
+    from_redis = utils.get_from_redis(key=uuid)
 
-    # Check if views already exists
-    views = db.query(models.Views).filter(models.Views.pixel_uuid == pixel.uuid).all()
-    if not views:
-        # Add a View
-        new_view = models.Views(
-            view_datetime = datetime.datetime.utcnow(),
-            pixel_uuid = pixel.uuid
-        )
+    if from_redis:
+        return FileResponse("tracking_pixel.gif", media_type="image/gif")
+    else:
+        utils.save_to_redis(key=uuid, value=request.client.host)
 
-        db.add(new_view)
-        db.commit()
-        db.refresh(new_view)
+        # Check if pixel exists
+        pixel = db.query(models.Pixels).filter(models.Pixels.uuid == uuid).first()
+        if not pixel:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Pixel with uuid {uuid} not found.")
+    
+        # Check if views already exists
+        views = db.query(models.Views).filter(models.Views.pixel_uuid == pixel.uuid).all()
+        if not views:
+            # Add a View
+            new_view = models.Views(
+                view_datetime = datetime.datetime.utcnow(),
+                pixel_uuid = pixel.uuid
+            )
+    
+            db.add(new_view)
+            db.commit()
+            db.refresh(new_view)
 
-    return FileResponse("tracking_pixel.gif", media_type="image/gif")
+        return FileResponse("tracking_pixel.gif", media_type="image/gif")
+    
 
 @router.get('/', tags=["Pixel"])
 def get_all(

@@ -47,6 +47,25 @@ services:
     ports:
       - 3306:3306  # Expose to other containers, but not the host
 
+  redis:
+    image: redis:7.4.2
+    container_name: redis_service
+    restart: always
+    command: >
+      redis-server 
+      --appendonly yes 
+      --requirepass ${REDIS_PASSWORD} 
+      --masterauth ${REDIS_ROOT_PASSWORD} 
+      --maxmemory 200mb 
+      --maxmemory-policy allkeys-lru
+    volumes:
+      - ./redis_data:/data
+    networks:
+      - my_network
+    env_file:
+      - .env
+    # No ports section to keep Redis internal
+
   cert-gen:
     image: alpine
     volumes:
